@@ -12,7 +12,9 @@ const app = express();
 
 // For Vercel serverless functions
 if (process.env.NODE_ENV === 'production') {
-    module.exports = app;
+    module.exports = (req, res) => {
+        app(req, res);
+    };
 }
 
 const PORT = process.env.PORT || 3000;
