@@ -667,7 +667,10 @@
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
             if (currentUser) {
-                window.location.href = 'main.html';
+                // Only redirect if we're not already on main page
+                if (!window.location.pathname.includes('main.html')) {
+                    window.location.href = 'main.html';
+                }
             }
         });
 

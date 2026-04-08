@@ -1419,8 +1419,11 @@
             const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
             
             if (!currentUser) {
-                // Redirect to login page if not authenticated
-                window.location.href = 'login.html';
+                // Only redirect if we're not already on login/signup page
+                const currentPath = window.location.pathname;
+                if (!currentPath.includes('login.html') && !currentPath.includes('signup.html')) {
+                    window.location.href = 'login.html';
+                }
                 return false;
             }
             
