@@ -1419,9 +1419,17 @@
             const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
             
             if (!currentUser) {
+<<<<<<< HEAD
                 // Redirect to login page if not authenticated
                 window.location.href = 'login.html';
                 return false;
+=======
+                const currentPath = window.location.pathname;
+                if (!currentPath.includes('login.html') && !currentPath.includes('signup.html')) {
+                    window.location.href = 'login.html';
+                }
+                return null;
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
             }
             
             return JSON.parse(currentUser);
@@ -1482,6 +1490,7 @@
         
         // Ensure Paystack is loaded before initializing POS
         window.addEventListener('load', function() {
+<<<<<<< HEAD
             // Check authentication first
             const currentUser = checkAuthentication();
             if (!currentUser) return;
@@ -1492,6 +1501,19 @@
             if (typeof PaystackPop === 'undefined') {
                 console.error('Paystack script failed to load');
                 alert('Paystack payment gateway is not available. Please check your internet connection and refresh the page.');
+=======
+            // Check authentication
+            const currentUser = checkAuthentication();
+            
+            // Always update user info if logged in
+            if (currentUser) {
+                updateUserInfo();
+            }
+            
+            // Check Paystack
+            if (typeof PaystackPop === 'undefined') {
+                console.error('Paystack script failed to load');
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
             } else {
                 console.log('Paystack loaded successfully');
             }

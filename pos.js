@@ -29,6 +29,12 @@ function initializePOS() {
     sales = JSON.parse(localStorage.getItem('sales')) || [];
     inventory = JSON.parse(localStorage.getItem('inventory')) || [];
     
+<<<<<<< HEAD
+=======
+    // Always load sample data for deployed version
+    loadSampleData();
+    
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
     // Set current date for reports
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('reportDate').value = today;

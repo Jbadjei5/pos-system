@@ -9,6 +9,17 @@ const sqlite3 = require('sqlite3').verbose();
 dotenv.config();
 
 const app = express();
+<<<<<<< HEAD
+=======
+
+// For Vercel serverless functions
+if (process.env.NODE_ENV === 'production' && process.env.VERCEL) {
+    module.exports = (req, res) => {
+        app(req, res);
+    };
+}
+
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -17,7 +28,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // SQLite database connection
+<<<<<<< HEAD
 const db = new sqlite3.Database('./pos_system.db', (err) => {
+=======
+const dbPath = process.env.NODE_ENV === 'production' ? '/tmp/pos_system.db' : './pos_system.db';
+const db = new sqlite3.Database(dbPath, (err) => {
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
     if (err) {
         console.error('Error opening database:', err.message);
     } else {
@@ -275,6 +291,18 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
+=======
+// Health check endpoint for Render
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'OK', 
+        message: 'POS Backend is running',
+        timestamp: new Date().toISOString()
+    });
+});
+
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

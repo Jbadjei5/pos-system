@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "pos-backend",
   "version": "1.0.0",
   "description": "Point of Sale System Backend",
@@ -8,17 +9,34 @@
     "dev": "nodemon server.js",
     "init-db": "node scripts/init-database.js",
     "seed": "node scripts/seed-data.js"
+=======
+  "name": "pos-system",
+  "version": "1.0.0",
+  "description": "Student Point of Sale System",
+  "main": "main.html",
+  "scripts": {
+    "start": "node server-sqlite.js",
+    "dev": "nodemon server-sqlite.js",
+    "build": "echo 'Build complete'",
+    "deploy": "vercel --prod"
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
   },
   "keywords": [
     "pos",
     "point-of-sale",
     "retail",
     "inventory",
+<<<<<<< HEAD
     "sales"
+=======
+    "sales",
+    "vercel"
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
   ],
   "author": "Student POS Project",
   "license": "MIT",
   "dependencies": {
+<<<<<<< HEAD
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -36,5 +54,16 @@
   },
   "engines": {
     "node": ">=14.0.0"
+=======
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sqlite3": "^6.0.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": "20.x"
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
   }
 }

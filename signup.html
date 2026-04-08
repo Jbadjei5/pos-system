@@ -667,7 +667,14 @@
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
             if (currentUser) {
+<<<<<<< HEAD
                 window.location.href = 'main.html';
+=======
+                // Only redirect if we're not already on main page
+                if (!window.location.pathname.includes('main.html')) {
+                    window.location.href = 'main.html';
+                }
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
             }
         });
 
@@ -903,7 +910,11 @@
             
             try {
                 // Call backend API
+<<<<<<< HEAD
                 const response = await fetch('http://localhost:3000/api/auth/signup', {
+=======
+                const response = await fetch('https://pos-backend.onrender.com/api/auth/signup', {
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -914,13 +925,18 @@
                         password: password,
                         full_name: `${firstName} ${lastName}`,
                         phone: phone,
+<<<<<<< HEAD
                         role: role
+=======
+                        role: 'cashier' // Default role for new users
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
                     })
                 });
                 
                 const data = await response.json();
                 
                 if (response.ok) {
+<<<<<<< HEAD
                     // Store user session
                     const currentUser = {
                         id: data.user.id,
@@ -945,11 +961,27 @@
                     // Handle server errors
                     showAlert(data.error || 'Registration failed', 'danger');
                     showLoading(false);
+=======
+                    showAlert('Registration successful! Redirecting to login...', 'success');
+                    
+                    // Redirect to login page after delay
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                    
+                } else {
+                    showAlert(data.error || 'Registration failed', 'danger');
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
                 }
                 
             } catch (error) {
                 console.error('Signup error:', error);
+<<<<<<< HEAD
                 showAlert('Connection error. Please check if the server is running.', 'danger');
+=======
+                showAlert('Connection error. Please check if server is running.', 'danger');
+            } finally {
+>>>>>>> 654fdc11e571b5ebb760a6258498aa4058bca3dd
                 showLoading(false);
             }
         });
