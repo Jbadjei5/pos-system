@@ -27,10 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "dotenv": "^16.3.1"
   },
-  "devDependencies": {
-    "vercel": "^32.3.1"
-  },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "18.x"
   }
 }
