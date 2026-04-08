@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 // For Vercel serverless functions
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' && process.env.VERCEL) {
     module.exports = (req, res) => {
         app(req, res);
     };

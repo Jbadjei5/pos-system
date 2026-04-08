@@ -1,6 +1,6 @@
 // API Configuration
 const API_CONFIG = {
-    BASE_URL: window.location.origin + '/api',
+    BASE_URL: 'https://pos-backend.onrender.com/api',
     TIMEOUT: 10000
 };
 

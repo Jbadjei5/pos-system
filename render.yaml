@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: pos-backend
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node server-sqlite.js"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        value: your-super-secure-jwt-secret-key-for-production-min-32-chars
+    autoDeploy: true
+    healthCheckPath: /api/health
