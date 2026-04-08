@@ -5,24 +5,18 @@ services:
     env: node
     plan: free
     buildCommand: "npm install"
-    startCommand: "npm start"
+    startCommand: "node server-postgres.js"
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      # Database configuration - you'll need to set these in Render dashboard
-      - key: DB_HOST
-        value: # Set this in Render dashboard
-      - key: DB_USER
-        value: # Set this in Render dashboard  
-      - key: DB_PASSWORD
-        value: # Set this in Render dashboard
-      - key: DB_NAME
-        value: # Set this in Render dashboard
       # JWT Secret - generate a secure random string
       - key: JWT_SECRET
         value: # Set this in Render dashboard
+      # Frontend URL for CORS
+      - key: FRONTEND_URL
+        value: # Set this to your Vercel URL
       # Paystack keys
       - key: PAYSTACK_PUBLIC_KEY
         value: pk_live_ac50bb69405548b385982fc3639348a1570e0dc5
@@ -30,7 +24,7 @@ services:
         value: # Set this in Render dashboard
 
 databases:
-  # MySQL Database for production
+  # PostgreSQL Database for production
   - name: pos-database
     databaseName: pos_system
     user: pos_user
