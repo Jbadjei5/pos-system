@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "main.html",
+      "src": "*.html",
       "use": "@vercel/static"
     }
   ],
@@ -10,6 +10,14 @@
     {
       "src": "/",
       "dest": "/login.html"
+    },
+    {
+      "src": "/login.html",
+      "dest": "/login.html"
+    },
+    {
+      "src": "/signup.html",
+      "dest": "/signup.html"
     },
     {
       "src": "/main.html",
