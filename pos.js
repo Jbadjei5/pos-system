@@ -29,6 +29,11 @@ function initializePOS() {
     sales = JSON.parse(localStorage.getItem('sales')) || [];
     inventory = JSON.parse(localStorage.getItem('inventory')) || [];
     
+    // Always load sample data if products array is empty
+    if (products.length === 0) {
+        loadSampleData();
+    }
+    
     // Set current date for reports
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('reportDate').value = today;

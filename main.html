@@ -1418,8 +1418,9 @@
         function checkAuthentication() {
             const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
             
+            // Allow access to main page without forcing login
+            // Only redirect if explicitly accessing protected routes
             if (!currentUser) {
-                // Only redirect if we're not already on login/signup page
                 const currentPath = window.location.pathname;
                 if (!currentPath.includes('login.html') && !currentPath.includes('signup.html')) {
                     window.location.href = 'login.html';
