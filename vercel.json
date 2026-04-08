@@ -4,6 +4,10 @@
     {
       "src": "*.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "server-sqlite.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -22,6 +26,10 @@
     {
       "src": "/main.html",
       "dest": "/main.html"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/server-sqlite.js"
     }
   ]
 }

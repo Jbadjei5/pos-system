@@ -6,10 +6,15 @@ const dotenv = require('dotenv');
 const sqlite3 = require('sqlite3').verbose();
 
 // Load environment variables
-const envPath = process.env.NODE_ENV === 'production' ? '.env' : '.env';
-dotenv.config({ path: envPath });
+dotenv.config();
 
 const app = express();
+
+// For Vercel serverless functions
+if (process.env.NODE_ENV === 'production') {
+    module.exports = app;
+}
+
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -276,14 +281,16 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log(`Demo users created:`);
-    console.log(`Admin: admin@pos.com / admin123`);
-    console.log(`Cashier: cashier@pos.com / cashier123`);
-    console.log(`Manager: manager@pos.com / manager123`);
-});
+// Start server (only for local development)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        console.log(`Demo users created:`);
+        console.log(`Admin: admin@pos.com / admin123`);
+        console.log(`Cashier: cashier@pos.com / cashier123`);
+        console.log(`Manager: manager@pos.com / manager123`);
+    });
+}
 
 // Graceful shutdown
 process.on('SIGINT', () => {
