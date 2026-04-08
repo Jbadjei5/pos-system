@@ -1,0 +1,36 @@
+{
+  "name": "pos-system",
+  "version": "1.0.0",
+  "description": "Student Point of Sale System",
+  "main": "main.html",
+  "scripts": {
+    "start": "node server-sqlite.js",
+    "dev": "nodemon server-sqlite.js",
+    "build": "echo 'Build complete'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "pos",
+    "point-of-sale",
+    "retail",
+    "inventory",
+    "sales",
+    "vercel"
+  ],
+  "author": "Student POS Project",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sqlite3": "^6.0.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "vercel": "^32.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
