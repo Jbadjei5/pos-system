@@ -1418,14 +1418,12 @@
         function checkAuthentication() {
             const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
             
-            // Allow access to main page without forcing login
-            // Only redirect if explicitly accessing protected routes
             if (!currentUser) {
                 const currentPath = window.location.pathname;
                 if (!currentPath.includes('login.html') && !currentPath.includes('signup.html')) {
                     window.location.href = 'login.html';
                 }
-                return false;
+                return null;
             }
             
             return JSON.parse(currentUser);
@@ -1486,16 +1484,17 @@
         
         // Ensure Paystack is loaded before initializing POS
         window.addEventListener('load', function() {
-            // Check authentication first
+            // Check authentication
             const currentUser = checkAuthentication();
-            if (!currentUser) return;
             
-            // Update user info
-            updateUserInfo();
+            // Always update user info if logged in
+            if (currentUser) {
+                updateUserInfo();
+            }
             
+            // Check Paystack
             if (typeof PaystackPop === 'undefined') {
                 console.error('Paystack script failed to load');
-                alert('Paystack payment gateway is not available. Please check your internet connection and refresh the page.');
             } else {
                 console.log('Paystack loaded successfully');
             }
