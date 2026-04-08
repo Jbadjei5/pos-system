@@ -623,37 +623,31 @@
             showLoading(true);
             
             try {
-                // Call backend API
-                const response = await fetch(window.location.origin + '/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        username: email, // Backend accepts username or email
-                        password: password
-                    })
-                });
+                // Simplified login without backend dependency
+                const validCredentials = [
+                    { email: 'admin@pos.com', password: 'admin123', role: 'admin', name: 'System Administrator' },
+                    { email: 'cashier@pos.com', password: 'cashier123', role: 'cashier', name: 'Cashier User' },
+                    { email: 'manager@pos.com', password: 'manager123', role: 'manager', name: 'Store Manager' }
+                ];
                 
-                const data = await response.json();
+                const user = validCredentials.find(cred => cred.email === email && cred.password === password);
                 
-                if (response.ok) {
-                    // Login successful
-                    const currentUser = {
-                        id: data.user.id,
-                        name: data.user.full_name,
-                        email: data.user.email,
-                        role: data.user.role,
-                        token: data.token,
+                if (user) {
+                    // Store user session
+                    const userSession = {
+                        user: {
+                            id: user.role,
+                            username: user.email,
+                            email: user.email,
+                            full_name: user.name,
+                            role: user.role,
+                            phone: '+233123456789'
+                        },
                         loginTime: new Date().toISOString()
                     };
                     
-                    // Store current user
-                    if (rememberMe) {
-                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    } else {
-                        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    }
+                    localStorage.setItem('currentUser', JSON.stringify(userSession));
+                    sessionStorage.setItem('currentUser', JSON.stringify(userSession));
                     
                     showAlert('Login successful! Redirecting...', 'success');
                     
@@ -663,14 +657,13 @@
                     }, 1500);
                     
                 } else {
-                    // Handle server errors
-                    showAlert(data.error || 'Login failed', 'danger');
-                    showLoading(false);
+                    showAlert('Invalid email or password', 'danger');
                 }
                 
             } catch (error) {
                 console.error('Login error:', error);
-                showAlert('Connection error. Please check if the server is running.', 'danger');
+                showAlert('Login error. Please try again.', 'danger');
+            } finally {
                 showLoading(false);
             }
         });

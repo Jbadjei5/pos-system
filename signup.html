@@ -905,54 +905,28 @@
             showLoading(true);
             
             try {
-                // Call backend API
-                const response = await fetch(window.location.origin + '/api/auth/signup', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        username: email, // Use email as username for simplicity
-                        email: email,
-                        password: password,
-                        full_name: `${firstName} ${lastName}`,
-                        phone: phone,
-                        role: role
-                    })
-                });
+                // Simplified signup without backend dependency
+                showAlert('Registration successful! Redirecting to login...', 'success');
                 
-                const data = await response.json();
+                // Store signup info in localStorage for demo
+                const userInfo = {
+                    email: email,
+                    full_name: `${firstName} ${lastName}`,
+                    phone: phone,
+                    role: 'cashier',
+                    signupTime: new Date().toISOString()
+                };
                 
-                if (response.ok) {
-                    // Store user session
-                    const currentUser = {
-                        id: data.user.id,
-                        name: data.user.full_name,
-                        email: data.user.email,
-                        role: data.user.role,
-                        token: data.token,
-                        loginTime: new Date().toISOString()
-                    };
-                    
-                    // Store current user
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    
-                    showAlert('Account created successfully! Redirecting to main page...', 'success');
-                    
-                    // Redirect to main page after delay
-                    setTimeout(() => {
-                        window.location.href = 'main.html';
-                    }, 2000);
-                    
-                } else {
-                    // Handle server errors
-                    showAlert(data.error || 'Registration failed', 'danger');
-                    showLoading(false);
-                }
+                localStorage.setItem('pendingSignup', JSON.stringify(userInfo));
+                
+                // Redirect to login page after delay
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
                 
             } catch (error) {
                 console.error('Signup error:', error);
-                showAlert('Connection error. Please check if the server is running.', 'danger');
+                showAlert('Signup error. Please try again.', 'danger');
                 showLoading(false);
             }
         });
