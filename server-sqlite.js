@@ -25,7 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // SQLite database connection
-const db = new sqlite3.Database('./pos_system.db', (err) => {
+const dbPath = process.env.NODE_ENV === 'production' ? '/tmp/pos_system.db' : './pos_system.db';
+const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Error opening database:', err.message);
     } else {
@@ -283,16 +284,23 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
-// Start server (only for local development)
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-        console.log(`Demo users created:`);
-        console.log(`Admin: admin@pos.com / admin123`);
-        console.log(`Cashier: cashier@pos.com / cashier123`);
-        console.log(`Manager: manager@pos.com / manager123`);
+// Health check endpoint for Render
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'OK', 
+        message: 'POS Backend is running',
+        timestamp: new Date().toISOString()
     });
-}
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Demo users created:`);
+    console.log(`Admin: admin@pos.com / admin123`);
+    console.log(`Cashier: cashier@pos.com / cashier123`);
+    console.log(`Manager: manager@pos.com / manager123`);
+});
 
 // Graceful shutdown
 process.on('SIGINT', () => {
